@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" ng-app="tunely">
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -10,7 +10,7 @@
     <link rel="stylesheet" href="/vendor/bootstrap/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="/styles/bootstrap-theme.min.css">
     <link rel="stylesheet" href="/styles/styles.css">
-
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.4/angular.js"></script>
     <!-- VENDOR SCRIPTS -->
     <script src="/vendor/angular/angular.min.js"></script>
     <script src="/vendor/angular-route/angular-route.min.js"></script>
@@ -26,6 +26,25 @@
         <p>Your music binder!</p>
       </div>
     </div>
+    <div class="container" ng-controller="AlbumsIndexController as albumsIndexCtrl">
+      <p><b>Album:</b> {{albumsIndexCtrl.newAlbum.name}}</p>
+      <p><b>Artist Name:</b> {{albumsIndexCtrl.newAlbum.artistName}}</p>
+
+  <!--html inside of here can use the information from the AlbumsIndexController-->
+  <label for="name">Searchy by Album Name:</label>
+  <input type="text" class="form-control" placeholder="New album name" ng-model="search.name">
+  <label for="artistName">Searchy by Artist Name:</label>
+  <input type="text" class="form-control" placeholder="New album artist" ng-model="search.artistName">
+
+  <div ng-repeat="album in albumsIndexCtrl.albums | filter:search | orderBy:'+artistName'">
+    <div class="thumbnail">
+    <h2>{{album.artistName}}</h2>
+    <p>{{album.name}}, </p>
+    </div>
+
+  </div>
+  </div>
+
   </body>
 
 </html>
