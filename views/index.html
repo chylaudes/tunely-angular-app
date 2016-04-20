@@ -38,11 +38,27 @@
 
   <div ng-repeat="album in albumsIndexCtrl.albums | filter:search | orderBy:'+artistName'">
     <div class="thumbnail">
-    <h2>{{album.artistName}}</h2>
-    <p>{{album.name}}, </p>
+      <input ng-show="editing" ng-model="album.artistName" type="text" class="form-control input-md">
+      <input ng-show="editing" ng-model="album.name" type="text" class="form-control input-md">
+      <h2 ng-hide="editing">{{album.artistName}}</h2>
+      <p ng-hide="editing">{{album.name}} </p>
+      <button class='btn btn-info' ng-hide="editing" ng-click="editing = true">Edit Album</button>
+      <button class='btn btn-success' ng-show="editing" ng-click="albumsIndexCtrl.editAlbum(album); editing = false">Save Changes</button>
+      <button class='btn btn-danger' ng-click="albumsIndexCtrl.deleteAlbum(album)">Delete Album</button>
     </div>
-
   </div>
+  <hr>
+    <form ng-submit="albumsIndexCtrl.createAlbum()">
+      <div class="form-group">
+        <label for="name">Create a new Album Name</label>
+        <input type="text" class="form-control" id="newAlbum"  ng-model="albumsIndexCtrl.newAlbum.name" placeholder="Add your album">
+      </div>
+      <div class="form-group">
+        <label for="artistName">Artist Name</label>
+        <input type="text" class="form-control" id="newAlbum" ng-model="albumsIndexCtrl.newAlbum.artistName" placeholder="Put in your artist!" value="">
+      </div>
+      <button type="submit" class="btn btn-default">Submit</button>
+    </form>
   </div>
 
   </body>
